@@ -1,0 +1,1 @@
+To view the file in the shell, do: $ nano fixme1.py

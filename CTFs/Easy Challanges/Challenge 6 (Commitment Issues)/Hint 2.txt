@@ -1,0 +1,1 @@
+Read the chapter on Git from the picoPrimer here: https://primer.picoctf.org/#_git_version_control
