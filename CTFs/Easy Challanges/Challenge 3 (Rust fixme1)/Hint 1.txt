@@ -1,0 +1,1 @@
+Cargo is Rust's package manager and will make your life easier. Here's the page to get you started: https://doc.rust-lang.org/book/ch01-03-hello-cargo.html

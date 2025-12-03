@@ -1,0 +1,1 @@
+You can use grep to filter only matching lines from the log
