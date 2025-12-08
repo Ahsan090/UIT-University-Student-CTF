@@ -5,8 +5,6 @@
 ---
 
 ## 📌 Event Snapshot
-|  |  |
-|---|---|
 | **Who** | Undergrad / graduate students of **UIT University only** |
 | **Team size** | 1 – 3 people (no cross-team help) |
 | **Format** | Onsite jeopardy (no attack/defence, no external servers) |
