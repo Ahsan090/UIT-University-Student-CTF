@@ -1,0 +1,121 @@
+Below is the complete walk-through (exactly as published on Paul Hempshall’s site) immediately followed by its solution for every challenge.  
+Order = walk-through first → solution second.
+
+---
+
+### 1. Blockchain – “To The Moon”
+
+**Walk-through**  
+My first blockchain-based challenge. Originally it was a single challenge but I decided it would be far too easy so I mixed it up and chained two additional challenges to it.  
+The first challenge is simple password-protected JPG steganography cracking using *stegcracker*.  
+Next, is simple ZIP password cracking using *john*.  
+Then once you are in, it becomes a fairly simple OSINT challenge. Just search the internet with the string that you find and it will give you a clue to what it is. If you then try different resources, the answer will be in front of you without the need to decode anything.
+
+**Solution**  
+`flag{Inf0S3cBl0ckch41nAn4lys15}`
+
+---
+
+### 2. Blockchain – “Bad Blockchain”
+
+**Walk-through**  
+The problem with seemingly innocuous data. The Bitcoin transaction values when converted can convey different information. Inspired by real-world malware and a problem that we will likely see more of.  
+A little bit of OSINT will yield the research article: *akamai bitcoin botnet*  
+https://blogs.akamai.com/sitr/2021/02/bitcoins-blockchains-and-botnets.html  
+And a Python decoder:
+
+```python
+#!/usr/bin/env python3
+import sys
+wallet_values=[int(sys.argv[1]),int(sys.argv[2])]
+octets = []
+for txn in wallet_values:
+    octets.insert(0,str(int(hex(txn)[2:4], 16)))
+    octets.insert(0,str(int(hex(txn)[4:6], 16)))
+print("Malware IP:")
+print('.'.join(octets))
+```
+
+**Solution**  
+`192.168.200.48`
+
+---
+
+### 3. Image – “Hit a brick wall”
+
+**Walk-through**  
+Inspired by NASA and their Mars Rover Parachute as shown below. This is one of the less technical challenges and doesn’t require any fancy steganography tools. The flag is literally *written on the wall.*
+
+**Solution**  
+(flag string is visually written inside the picture; no literal flag supplied on the page)
+
+---
+
+### 4. Image – “Turtles all the way down”
+
+**Walk-through**  
+For this challenge, I decided to make it slightly more realistic by having an archive of many pictures instead of giving the flag bearer straight away. In a real-life situation, you will have to seek out and find the information rather than having the file handed to you on a plate.  
+There are many clues, however. The archive contains 20 pictures, 19 are JPG’s and 1 is a PNG. All of the pictures are happy turtles with the exception of one picture. There are a few misdirections, one of those points to a honeypot, but also provides further information for PNG steganography research.  
+Requires HEX editing of the IDHR headers, the bit that control the height, and then the CRC will need fixing. (The image has been modified to change the height, hiding the flag).
+
+**Solution**  
+`flag{coffee_first_then_smiles}`
+
+---
+
+### 5. Text – “Sequence”
+
+**Walk-through**  
+Text steganography with a twist. There are hints within the text explaining the structure if you can work it out. 1,2,3,5…
+
+**Solution**  
+`FLAG LANGUAGE`
+
+---
+
+### 6. Network/Data – “Intercepted”
+
+**Walk-through**  
+An idea I came up with myself after testing an email server. I thought it would be a good idea to send the message via a custom header instead of the message body.
+
+```bash
+~$ echo "Test body" | mail -s "Test Subject" -a "From: Test <[email protected]>" -a "X-Spam-Signature: PABZTAYKDRkNAFkCBwlHBRtNXkUJQFQAXQQHFkQfDE4TDApNBwAfWVQcRBANRVkZCB0PBw4DSwscVQBPWRtIEUUOSQsJEB0MBQYcDRsJDTIJDkgIABoeRDsfCgwXDScbTAABCkNFSSwVDQEKSxERSFQbQhsEFgNhYwgLBQgWGAoUSAAHRBoPOkQYNg8FCxoZNBEWchwOXQQNC1A=" -a "X-Spam-Validator: 6b65792d746f2d7468652d6b696e67646f6d"
+```
+
+The premise of this challenge is a compromised server but it could also be expanded to a developer exfiltrating company data by sending innocent-looking external test emails.  
+In reality, a person using this method would not include the decryption keys but I decided it was a little more exciting than using the standard rockyou.txt password list. Additionally, a person would use better encryption.
+
+**Solution**  
+`flag{something_is_about_to_happen}`
+
+---
+
+### 7. Network/Data – “Hidden”
+
+**Walk-through**  
+This was supposed to be a moderately challenging CTF. It turns out that you simply run *binwalk* and directly extract the flag…  
+I’d hoped it would require *a bit more work* to determine the file type and then find the flag hidden within the Alternate Data Stream. It just goes to show that trying to be clever can fail big time.
+
+Hidden within the Alternative Data Stream (ADS)
+
+Solution:
+- Extract zip  
+- Rename winsock32.dll to extension .vhd  
+- Mount VHD  
+- Check for ADS “dir /r”  
+- Open flag with “mspaint passwords.txt:flag.jpg”
+
+**Solution**  
+`flag{me0w_hia!}`
+
+---
+
+### 8. Audio/Video – “Elliot’s secret stash”
+
+**Walk-through**  
+Inspired by the method used on the TV show Mr Robot. This is an easy CTF with the right software.  
+I used a piece of software called DeepSound to encode hidden files inside the music track (the same method used on the TV show Mr Robot). The hidden file is a unfinished music video that was modified to visually include the flag. You will need to watch the video to find the flag. No other fancy stego involved.  
+DeepSound: http://www.jpinsoft.net/deepsound/overview.aspx
+
+**Solution**  
+`flag{hello_Elliot}`

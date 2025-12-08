@@ -1,0 +1,11 @@
+Bad Blockchain
+
+This new botnet is using blockchain to store backup command-and-control server IP addresses. We've extracted the Bitcoin address but it's not using the traditional OP_RETURN to hide the data. Can you find the IP address?
+
+Note: You are looking for an IP address not the traditional flag{}.
+
+Bitcoin Address: 1CTFzzCwntEm3a6CBGBfgxZdiArwY1HBSD
+Bitcoin Transaction: 4a616f943720325cc87611bf4a3bbcf2b5071baf5aab9a0ffbb9297371377c41
+Bitcoin Transaction: 27bf9358822ef3ae44391950379e9206319e3bb3866d44bd9595a0e7cbdc2ca8
+
+https://api.blockcypher.com/v1/btc/main/addrs/1CTFzzCwntEm3a6CBGBfgxZdiArwY1HBSD?limit=2&before=696257
